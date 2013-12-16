@@ -1,5 +1,5 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.1 $ $Date: 2013/11/21 20:46:41 $
+# $Revision: 1.2 $ $Date: 2013/12/16 20:43:18 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
@@ -72,9 +72,15 @@ very-clean spotless: clean
 # We really do not need to change 32/64 configs because the project
 # file has all of that, but we do need to set the compiler to VC10
 #
-release: very-clean
+release: very-clean update-version
 	@echo ------------------------------
-	@echo BUILDING VS 2010  
-	$(USECONFIG) -win32 -cxx vc10_md & $(WINMAKE) build-win32
-	$(USECONFIG) -win64 -cxx vc10_md & $(WINMAKE) build-win64
+	@echo BUILDING VS 2012
+	$(USECONFIG) -win32 -cxx vc11_md & $(WINMAKE) build-win32
+	$(USECONFIG) -win64 -cxx vc11_md & $(WINMAKE) build-win64
 
+update-version:
+	perl verupdate.pl "explore\My Project\AssemblyInfo.vb" $(PKG_MAJ) $(PKG_MIN)
+	perl verupdate.pl "netdll\app.rc" $(PKG_MAJ) $(PKG_MIN)
+	perl verupdate.pl "netdll\AssemblyInfo.cpp" $(PKG_MAJ) $(PKG_MIN)
+
+#	perl verupdate.pl "resdll\shell.rc" $(PKG_MAJ) $(PKG_MIN)
