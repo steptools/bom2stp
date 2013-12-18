@@ -1,9 +1,10 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.2 $ $Date: 2013/12/16 20:43:18 $
+# $Revision: 1.3 $ $Date: 2013/12/18 21:01:33 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
 !include $(ROSE_CONFIG)
+!include version.mak
 
 NAME		= stepnc
 SOLUTION	= $(NAME).sln
@@ -12,7 +13,7 @@ EXEC		= $(NAME).dll
 EXEC_INSTDIR	= $(ROSE_BIN)
 EXEC_VCDIR	= $(VC32DIR)
 
-VC32DIR		= builds\Release-Win32
+VC32DIR		= builds\Release-x86
 VC64DIR		= builds\Release-x64
 
 MSBUILD		= MSBuild.exe
@@ -56,7 +57,7 @@ very-clean spotless: clean
 #
 # Build both versions, but we just install one to rose bin.
 "$(VC32DIR)\$(EXEC)":
-	$(MSBUILD) $(MSBUILD_FLAGS) /p:Platform="Win32" /p:Configuration="Release" 
+	$(MSBUILD) $(MSBUILD_FLAGS) /p:Platform="x86" /p:Configuration="Release" 
 
 "$(VC64DIR)\$(EXEC)":
 	$(MSBUILD) $(MSBUILD_FLAGS) /p:Platform="x64" /p:Configuration="Release"
