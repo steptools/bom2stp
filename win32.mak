@@ -1,5 +1,5 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.4 $ $Date: 2013/12/20 21:49:44 $
+# $Revision: 1.5 $ $Date: 2013/12/22 03:18:43 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
@@ -81,6 +81,9 @@ release: very-clean update-version
 
 
 sign-release:
+	signstep \
+		$(VC32DIR)\*.exe $(VC32DIR)\*.dll \
+		$(VC64DIR)\*.exe $(VC64DIR)\*.dll
 
 
 update-version:
