@@ -1,5 +1,5 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.5 $ $Date: 2013/12/22 03:18:43 $
+# $Revision: 1.6 $ $Date: 2013/12/24 17:52:24 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
@@ -88,5 +88,5 @@ sign-release:
 
 update-version:
 	perl verupdate.pl "explore\My Project\AssemblyInfo.vb" $(PKG_MAJ) $(PKG_MIN)
-	perl verupdate.pl "netdll\app.rc" $(PKG_MAJ) $(PKG_MIN)
+	perl verupdate.pl "netdll\stepnc.rc" $(PKG_MAJ) $(PKG_MIN)
 	perl verupdate.pl "netdll\AssemblyInfo.cpp" $(PKG_MAJ) $(PKG_MIN)
