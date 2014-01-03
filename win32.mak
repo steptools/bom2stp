@@ -1,5 +1,5 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.6 $ $Date: 2013/12/24 17:52:24 $
+# $Revision: 1.7 $ $Date: 2014/01/03 21:40:04 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
@@ -35,6 +35,7 @@ build-win64: "$(VC64DIR)\$(EXEC)"
 
 clean:
 	- $(RMDIR) "explore\builds"
+	- $(RMDIR) "maker\builds"
 	- $(RMDIR) "netdll\builds"
 
 #	- $(RM) $(SOLUTION).cache
