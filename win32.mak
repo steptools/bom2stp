@@ -1,5 +1,5 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.8 $ $Date: 2014/10/02 21:33:48 $
+# $Revision: 1.9 $ $Date: 2014/10/16 18:52:55 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
@@ -92,3 +92,25 @@ update-version:
 	perl verupdate.pl "netdll\stepnc.rc" $(PKG_MAJ) $(PKG_MIN)
 	perl verupdate.pl "netdll\AssemblyInfo.cpp" $(PKG_MAJ) $(PKG_MIN)
 	perl verupdate.pl "plugin\Properties\AssemblyInfo.cs" $(PKG_MAJ) $(PKG_MIN)
+
+
+
+sample-zip:
+	$(RM) sample_plugin.zip
+	$(CP) plugin\obj\Release\stepnc_plugin.dll sample
+	$(ZIP) -r sample_plugin sample/README.txt
+	$(ZIP) -r sample_plugin sample/sample.sln
+	$(ZIP) -r sample_plugin sample/stepnc_plugin.dll
+	$(ZIP) -r sample_plugin sample/SamplePlugin/Properties/AssemblyInfo.cs
+	$(ZIP) -r sample_plugin sample/SamplePlugin/SamplePlugin.cs
+	$(ZIP) -r sample_plugin sample/SamplePlugin/SamplePlugin.csproj
+	$(ZIP) -r sample_plugin sample/TestForm/Program.cs
+	$(ZIP) -r sample_plugin sample/TestForm/Properties/AssemblyInfo.cs
+	$(ZIP) -r sample_plugin sample/TestForm/Properties/Resources.Designer.cs
+	$(ZIP) -r sample_plugin sample/TestForm/Properties/Resources.resx
+	$(ZIP) -r sample_plugin sample/TestForm/Properties/Settings.Designer.cs
+	$(ZIP) -r sample_plugin sample/TestForm/Properties/Settings.settings
+	$(ZIP) -r sample_plugin sample/TestForm/TestForm.cs
+	$(ZIP) -r sample_plugin sample/TestForm/TestForm.csproj
+	$(ZIP) -r sample_plugin sample/TestForm/TestForm.Designer.cs
+	$(ZIP) -r sample_plugin sample/TestForm/TestForm.resx
