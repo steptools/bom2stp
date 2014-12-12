@@ -1,5 +1,5 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.9 $ $Date: 2014/10/16 18:52:55 $
+# $Revision: 1.10 $ $Date: 2014/12/12 22:31:46 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
@@ -103,6 +103,8 @@ sample-zip:
 	$(ZIP) -r sample_plugin sample/stepnc_plugin.dll
 	$(ZIP) -r sample_plugin sample/SamplePlugin/Properties/AssemblyInfo.cs
 	$(ZIP) -r sample_plugin sample/SamplePlugin/SamplePlugin.cs
+	$(ZIP) -r sample_plugin sample/SamplePlugin/MTConnectPlugin.cs
+	$(ZIP) -r sample_plugin sample/SamplePlugin/TextPlugin.cs
 	$(ZIP) -r sample_plugin sample/SamplePlugin/SamplePlugin.csproj
 	$(ZIP) -r sample_plugin sample/TestForm/Program.cs
 	$(ZIP) -r sample_plugin sample/TestForm/Properties/AssemblyInfo.cs
