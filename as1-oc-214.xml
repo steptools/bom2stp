@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="utf-8"?>
+<n0:Uos xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:n0="http://standards.iso.org/iso/ts/10303/-3001/-ed-1/tech/xml-schema/bo_model" xmlns:cmn="http://standards.iso.org/iso/ts/10303/-3000/-ed-1/tech/xml-schema/common" xsi:schemaLocation="http://standards.iso.org/iso/ts/10303/-3001/-ed-1/tech/xml-schema/bo_model AP242_BusinessObjectModel.xsd">
+    <Header xmlns="">
+        <Name>as1-oc-214</Name>
+        <PreprocessorVersion>ST-DEVELOPER v16</PreprocessorVersion>
+        <OriginatingSystem>UNKNOWN</OriginatingSystem>
+        <Authorization>&#32;</Authorization>
+        <Documentation>CAx-IF Rec.Pracs.---Representation and Presentation of Product Manufacturing Information (PMI)---3.3a---2012-01-01</Documentation>
+    </Header>
+    <DataContainer xmlns="" xsi:type="n0:AP242DataContainer">
+        <ExchangeContext uid="ExchangeContext--1">
+            <DefaultLanguage>English</DefaultLanguage>
+            <IdentificationContext uidRef="o--2"/>
+        </ExchangeContext>
+        <Organization uid="o--2">
+            <Id id="org_id_2"/>
+            <Name>
+                <CharacterString>&#32;</CharacterString>
+            </Name>
+            <OrganizationTypes>
+                <ClassString>company</ClassString>
+            </OrganizationTypes>
+        </Organization>
+        <ExternalClassSystem uid="ecs--dcat">
+            <Id id="document type">
+                <Identifier uid="dcat--documenttype-id1" id="document type" idContextRef="o--2"/>
+            </Id>
+        </ExternalClassSystem>
+        <ExternalClassSystem uid="ecs--dtp">
+            <Id id="file type">
+                <Identifier uid="dtp--filetype-id1" id="file type" idContextRef="o--2"/>
+            </Id>
+        </ExternalClassSystem>
+        <ExternalClassSystem uid="ecs--gmr">
+            <Id id="geometric model relation type">
+                <Identifier uid="dtp--gmr-id1" id="geometric model relation type" idContextRef="o--2"/>
+            </Id>
+        </ExternalClassSystem>
+        <ExternalClassSystem uid="ecs--pcat">
+            <Id id="part type">
+                <Identifier uid="pcat--parttype-id1" id="part type" idContextRef="o--2"/>
+            </Id>
+        </ExternalClassSystem>
+        <ExternalClassSystem uid="ecs--vda">
+            <Id id="VDA4956">
+                <Identifier uid="vda--VDA4956-id1" id="VDA4956" idContextRef="o--2"/>
+            </Id>
+        </ExternalClassSystem>
+        <ExternalClassSystem uid="ecs--nauo">
+            <Id id="part view occurrence relation type">
+                <Identifier uid="ecs--nauo-id1" id="part view occurrence relation type" idContextRef="o--2"/>
+            </Id>
+        </ExternalClassSystem>
+        <Class uid="dcat--document">
+            <DefinedIn uidRef="ecs--dcat"/>
+            <Id id="document">
+                <Identifier uid="dcat--document--id1" id="document" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dcat--geometryfile">
+            <DefinedIn uidRef="ecs--dcat"/>
+            <Id id="geometryfile">
+                <Identifier uid="dcat--geometryfile--id1" id="geometryfile" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dcat--3Dgeometry">
+            <DefinedIn uidRef="ecs--dcat"/>
+            <Id id="3Dgeometry">
+                <Identifier uid="dcat--3Dgeometry--id1" id="3Dgeometry" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dtp--CATProduct">
+            <DefinedIn uidRef="ecs--dtp"/>
+            <Id id="CATProduct">
+                <Identifier uid="dtp--CATProduct--id1" id="CATProduct" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dtp--CATPart">
+            <DefinedIn uidRef="ecs--dtp"/>
+            <Id id="CATPart">
+                <Identifier uid="dtp--CATPart--id1" id="CATPart" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dtp--Model">
+            <DefinedIn uidRef="ecs--dtp"/>
+            <Id id="model">
+                <Identifier uid="dtp--Model--id1" id="model" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dtp--CGR">
+            <DefinedIn uidRef="ecs--dtp"/>
+            <Id id="cgr">
+                <Identifier uid="dtp--CGR--id1" id="cgr" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dtp--JT">
+            <DefinedIn uidRef="ecs--dtp"/>
+            <Id id="JT">
+                <Identifier uid="dtp--JT--id1" id="JT" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="dtp--STEPAP242">
+            <DefinedIn uidRef="ecs--dtp"/>
+            <Id id="PDM Data">
+                <Identifier uid="dtp--STEPAP242--id1" id="PDM Data" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="ccs--cartesian">
+            <Id id="cartesian">
+                <Identifier uid="ccs--cartesian--id1" id="cartesian" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="gmr--decomposition">
+            <DefinedIn uidRef="ecs--gmr"/>
+            <Id id="decomposition">
+                <Identifier uid="gmr--decomposition--id1" id="decomposition" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="pcat--part">
+            <DefinedIn uidRef="ecs--pcat"/>
+            <Id id="piece part">
+                <Identifier uid="pcat--part--id1" id="piece part" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="pcat--assembly">
+            <DefinedIn uidRef="ecs--pcat"/>
+            <Id id="product">
+                <Identifier uid="pcat--assembly--id1" id="product" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="nauo--assembly">
+            <DefinedIn uidRef="ecs--nauo"/>
+            <Id id="assembly">
+                <Identifier uid="nauo--assembly--id1" id="assembly" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="pcat--component">
+            <DefinedIn uidRef="ecs--pcat"/>
+            <Id id="component">
+                <Identifier uid="pcat--component--id1" id="component" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <Class uid="vda--SpecifiedReference">
+            <DefinedIn uidRef="ecs--vda"/>
+            <Id id="specified reference">
+                <Identifier uid="vda--SpecifiedReference--id1" id="specified reference" idContextRef="o--2"/>
+            </Id>
+        </Class>
+        <FormatProperty uid="ffp--XML">
+            <DataFormat>
+                <ClassString>AP242 BO Model XML</ClassString>
+            </DataFormat>
+        </FormatProperty>
+        <FormatProperty uid="ffp--JT">
+            <DataFormat>
+                <ClassString>JT</ClassString>
+            </DataFormat>
+        </FormatProperty>
+        <FormatProperty uid="ffp--CATIAV4">
+            <DataFormat>
+                <ClassString>CATIA V4</ClassString>
+            </DataFormat>
+        </FormatProperty>
+        <FormatProperty uid="ffp--CATIAV5">
+            <DataFormat>
+                <ClassString>CATIA V5</ClassString>
+            </DataFormat>
+        </FormatProperty>
+        <FormatProperty uid="ffp--CGR">
+            <DataFormat>
+                <ClassString>CGR</ClassString>
+            </DataFormat>
+        </FormatProperty>
+        <ViewContext uid="ac--mechanicaldesign--design">
+            <ApplicationDomain>
+                <ProxyString>mechanical design</ProxyString>
+            </ApplicationDomain>
+            <LifeCycleStage>
+                <ProxyString>design</ProxyString>
+            </LifeCycleStage>
+        </ViewContext>
+        <Part uid="p--3--id1">
+            <Id id="MASTER">
+                <Identifier uid="pid--3--id1" id="MASTER" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>MASTER</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+                <Class uidRef="pcat--assembly"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--3--id1">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--3--id1">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <PropertyValueAssignment uid="pva--3">
+                                <AssignedPropertyValues>
+                                    <PropertyValue uid="pv--5" xsi:type="n0:StringValue">
+                                        <Definition>
+                                            <PropertyDefinitionString>Part Origin</PropertyDefinitionString>
+                                        </Definition>
+                                        <Name>
+                                            <CharacterString>MASTER</CharacterString>
+                                        </Name>
+                                        <ValueComponent>
+                                            <CharacterString>STEP Tools Inc</CharacterString>
+                                        </ValueComponent>
+                                    </PropertyValue>
+                                </AssignedPropertyValues>
+                            </PropertyValueAssignment>
+                            <ViewOccurrenceRelationship uid="pvvid--6--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--6--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--6--id1">
+                                        <RotationMatrix>0.000000 0.000000 -1.000000 -0.000000 1.000000 0.000000 1.000000 0.000000 0.000000</RotationMatrix>
+                                        <TranslationVector>-10.000000 75.000000 60.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--7--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--7--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--7--id1">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>5.000000 125.000000 20.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--8--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--8--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--8--id1">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>0.000000 0.000000 0.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--8--id3" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--8--id2"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--8--id2">
+                                        <RotationMatrix>-1.000000 0.000000 0.000000 0.000000 -1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>175.000000 25.000000 20.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <Part uid="p--9--id2">
+            <Id id="nut">
+                <Identifier uid="pid--9--id2" id="nut" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>nut</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--9--id2">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--9--id2">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--9--id1">
+                                <Id  id="nut.0"/>
+                            </Occurrence>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--9--id2">
+                                <Id  id="nut.1"/>
+                            </Occurrence>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--9--id3">
+                                <Id  id="nut.2"/>
+                            </Occurrence>
+                            <DocumentAssignment xsi:type="n0:DocumentAssignment" uid="da--9--id2">
+                                <AssignedDocument uidRef="df--9"/>
+                                <Role>
+                                    <ClassString>mandatory</ClassString>
+                                </Role>
+                            </DocumentAssignment>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <File xsi:type="n0:DigitalFile" uid="df--9">
+            <FileFormat uidRef="ffp--JT"/>
+            <FileType>
+                <Class uidRef="dtp--JT"/>
+            </FileType>
+            <Id id="nut.jt">
+                <Identifier uid="dfid--9--id2" id="nut.jt" idContextRef="o--2"/>
+            </Id>
+            <Locations>
+                <ExternalItem uid="idal--9--ei">
+                    <Id id="nut.jt">
+                        <Identifier uid="idal--9--id2" id="nut.jt" idContextRef="o--2"/>
+                    </Id>
+                    <Source>
+                        <IdentifierString>.\</IdentifierString>
+                    </Source>
+                </ExternalItem>
+            </Locations>
+        </File>
+        <Part uid="p--11--id3">
+            <Id id="rod">
+                <Identifier uid="pid--11--id3" id="rod" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>rod</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--11--id3">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--11--id3">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--11--id1">
+                                <Id  id="rod.0"/>
+                            </Occurrence>
+                            <DocumentAssignment xsi:type="n0:DocumentAssignment" uid="da--11--id3">
+                                <AssignedDocument uidRef="df--11"/>
+                                <Role>
+                                    <ClassString>mandatory</ClassString>
+                                </Role>
+                            </DocumentAssignment>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <File xsi:type="n0:DigitalFile" uid="df--11">
+            <FileFormat uidRef="ffp--JT"/>
+            <FileType>
+                <Class uidRef="dtp--JT"/>
+            </FileType>
+            <Id id="rod.jt">
+                <Identifier uid="dfid--11--id3" id="rod.jt" idContextRef="o--2"/>
+            </Id>
+            <Locations>
+                <ExternalItem uid="idal--11--ei">
+                    <Id id="rod.jt">
+                        <Identifier uid="idal--11--id3" id="rod.jt" idContextRef="o--2"/>
+                    </Id>
+                    <Source>
+                        <IdentifierString>.\</IdentifierString>
+                    </Source>
+                </ExternalItem>
+            </Locations>
+        </File>
+        <Part uid="p--6--id4">
+            <Id id="rod-assembly">
+                <Identifier uid="pid--6--id4" id="rod-assembly" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>rod-assembly</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+                <Class uidRef="pcat--assembly"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--6--id4">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--6--id4">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--6--id1">
+                                <Id  id="rod-assembly.0"/>
+                            </Occurrence>
+                            <PropertyValueAssignment uid="pva--6">
+                                <AssignedPropertyValues>
+                                    <PropertyValue uid="pv--15" xsi:type="n0:StringValue">
+                                        <Definition>
+                                            <PropertyDefinitionString>Part Origin</PropertyDefinitionString>
+                                        </Definition>
+                                        <Name>
+                                            <CharacterString>rod-assembly</CharacterString>
+                                        </Name>
+                                        <ValueComponent>
+                                            <CharacterString>STEP Tools Inc</CharacterString>
+                                        </ValueComponent>
+                                    </PropertyValue>
+                                </AssignedPropertyValues>
+                            </PropertyValueAssignment>
+                            <ViewOccurrenceRelationship uid="pvvid--9--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--9--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--9--id1">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>-10.000000 -7.500000 185.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--9--id3" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--9--id2"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--9--id2">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>-10.000000 -7.500000 12.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--11--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--11--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--11--id1">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>0.000000 0.000000 0.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <Part uid="p--16--id5">
+            <Id id="bolt">
+                <Identifier uid="pid--16--id5" id="bolt" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>bolt</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--16--id5">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--16--id5">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--16--id1">
+                                <Id  id="bolt.0"/>
+                            </Occurrence>
+                            <DocumentAssignment xsi:type="n0:DocumentAssignment" uid="da--16--id5">
+                                <AssignedDocument uidRef="df--16"/>
+                                <Role>
+                                    <ClassString>mandatory</ClassString>
+                                </Role>
+                            </DocumentAssignment>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <File xsi:type="n0:DigitalFile" uid="df--16">
+            <FileFormat uidRef="ffp--JT"/>
+            <FileType>
+                <Class uidRef="dtp--JT"/>
+            </FileType>
+            <Id id="bolt.jt">
+                <Identifier uid="dfid--16--id5" id="bolt.jt" idContextRef="o--2"/>
+            </Id>
+            <Locations>
+                <ExternalItem uid="idal--16--ei">
+                    <Id id="bolt.jt">
+                        <Identifier uid="idal--16--id5" id="bolt.jt" idContextRef="o--2"/>
+                    </Id>
+                    <Source>
+                        <IdentifierString>.\</IdentifierString>
+                    </Source>
+                </ExternalItem>
+            </Locations>
+        </File>
+        <Part uid="p--18--id6">
+            <Id id="nut-bolt-assembly">
+                <Identifier uid="pid--18--id6" id="nut-bolt-assembly" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>nut-bolt-assembly</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+                <Class uidRef="pcat--assembly"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--18--id6">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--18--id6">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--18--id1">
+                                <Id  id="nut-bolt-assembly.0"/>
+                            </Occurrence>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--18--id2">
+                                <Id  id="nut-bolt-assembly.1"/>
+                            </Occurrence>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--18--id3">
+                                <Id  id="nut-bolt-assembly.2"/>
+                            </Occurrence>
+                            <PropertyValueAssignment uid="pva--18">
+                                <AssignedPropertyValues>
+                                    <PropertyValue uid="pv--20" xsi:type="n0:StringValue">
+                                        <Definition>
+                                            <PropertyDefinitionString>Part Origin</PropertyDefinitionString>
+                                        </Definition>
+                                        <Name>
+                                            <CharacterString>nut-bolt-assembly</CharacterString>
+                                        </Name>
+                                        <ValueComponent>
+                                            <CharacterString>STEP Tools Inc</CharacterString>
+                                        </ValueComponent>
+                                    </PropertyValue>
+                                </AssignedPropertyValues>
+                            </PropertyValueAssignment>
+                            <ViewOccurrenceRelationship uid="pvvid--16--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--16--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--16--id1">
+                                        <RotationMatrix>0.000000 -1.000000 0.000000 -1.000000 -0.000000 -0.000000 0.000000 0.000000 -1.000000</RotationMatrix>
+                                        <TranslationVector>-7.500000 -10.000000 13.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--9--id4" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--9--id3"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--9--id3">
+                                        <RotationMatrix>-1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 -1.000000</RotationMatrix>
+                                        <TranslationVector>2.500000 -17.500000 -20.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <Part uid="p--21--id7">
+            <Id id="l-bracket">
+                <Identifier uid="pid--21--id7" id="l-bracket" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>l-bracket</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--21--id7">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--21--id7">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--21--id1">
+                                <Id  id="l-bracket.0"/>
+                            </Occurrence>
+                            <DocumentAssignment xsi:type="n0:DocumentAssignment" uid="da--21--id7">
+                                <AssignedDocument uidRef="df--21"/>
+                                <Role>
+                                    <ClassString>mandatory</ClassString>
+                                </Role>
+                            </DocumentAssignment>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <File xsi:type="n0:DigitalFile" uid="df--21">
+            <FileFormat uidRef="ffp--JT"/>
+            <FileType>
+                <Class uidRef="dtp--JT"/>
+            </FileType>
+            <Id id="l-bracket.jt">
+                <Identifier uid="dfid--21--id7" id="l-bracket.jt" idContextRef="o--2"/>
+            </Id>
+            <Locations>
+                <ExternalItem uid="idal--21--ei">
+                    <Id id="l-bracket.jt">
+                        <Identifier uid="idal--21--id7" id="l-bracket.jt" idContextRef="o--2"/>
+                    </Id>
+                    <Source>
+                        <IdentifierString>.\</IdentifierString>
+                    </Source>
+                </ExternalItem>
+            </Locations>
+        </File>
+        <Part uid="p--7--id8">
+            <Id id="l-bracket-assembly">
+                <Identifier uid="pid--7--id8" id="l-bracket-assembly" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>l-bracket-assembly</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+                <Class uidRef="pcat--assembly"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--7--id8">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--7--id8">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--7--id1">
+                                <Id  id="l-bracket-assembly.0"/>
+                            </Occurrence>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--8--id2">
+                                <Id  id="l-bracket-assembly.1"/>
+                            </Occurrence>
+                            <PropertyValueAssignment uid="pva--7">
+                                <AssignedPropertyValues>
+                                    <PropertyValue uid="pv--25" xsi:type="n0:StringValue">
+                                        <Definition>
+                                            <PropertyDefinitionString>Part Origin</PropertyDefinitionString>
+                                        </Definition>
+                                        <Name>
+                                            <CharacterString>l-bracket-assembly</CharacterString>
+                                        </Name>
+                                        <ValueComponent>
+                                            <CharacterString>STEP Tools Inc</CharacterString>
+                                        </ValueComponent>
+                                    </PropertyValue>
+                                </AssignedPropertyValues>
+                            </PropertyValueAssignment>
+                            <ViewOccurrenceRelationship uid="pvvid--18--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--18--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--18--id1">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>27.500000 -40.000000 0.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--18--id3" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--18--id2"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--18--id2">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>50.000000 -52.990379 0.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--18--id4" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--18--id3"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--18--id3">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 0.000000 1.000000 0.000000 0.000000 0.000000 1.000000</RotationMatrix>
+                                        <TranslationVector>50.000000 -27.009619 0.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                            <ViewOccurrenceRelationship uid="pvvid--21--id2" xsi:type="n0:NextAssemblyOccurrenceUsage">
+                                <Related uidRef="pi--21--id1"/>
+                                <RelationType>
+                                    <Class uidRef="nauo--assembly"/>
+                                </RelationType>
+                                <Placement>
+                                    <CartesianTransformation uid="cto--21--id1">
+                                        <RotationMatrix>1.000000 0.000000 0.000000 -0.000000 0.000000 1.000000 0.000000 -1.000000 0.000000</RotationMatrix>
+                                        <TranslationVector>0.000000 0.000000 0.000000</TranslationVector>
+                                    </CartesianTransformation>
+                                </Placement>
+                            </ViewOccurrenceRelationship>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <Part uid="p--8--id9">
+            <Id id="plate">
+                <Identifier uid="pid--8--id9" id="plate" idContextRef="o--2"/>
+            </Id>
+            <Name>
+                <CharacterString>plate</CharacterString>
+            </Name>
+            <PartTypes>
+                <Class uidRef="pcat--part"/>
+            </PartTypes>
+            <Versions>
+                <PartVersion uid="pv--8--id9">
+                    <Id id="version 0"/>
+                    <Views>
+                        <PartView xsi:type="n0:AssemblyDefinition" uid="pvv--8--id9">
+                            <InitialContext uidRef="ac--mechanicaldesign--design"/>
+                            <Occurrence xsi:type="n0:SingleOccurrence" uid="pi--8--id1">
+                                <Id  id="plate.0"/>
+                            </Occurrence>
+                            <DocumentAssignment xsi:type="n0:DocumentAssignment" uid="da--8--id9">
+                                <AssignedDocument uidRef="df--8"/>
+                                <Role>
+                                    <ClassString>mandatory</ClassString>
+                                </Role>
+                            </DocumentAssignment>
+                        </PartView>
+                    </Views>
+                </PartVersion>
+            </Versions>
+        </Part>
+        <File xsi:type="n0:DigitalFile" uid="df--8">
+            <FileFormat uidRef="ffp--JT"/>
+            <FileType>
+                <Class uidRef="dtp--JT"/>
+            </FileType>
+            <Id id="plate.jt">
+                <Identifier uid="dfid--8--id9" id="plate.jt" idContextRef="o--2"/>
+            </Id>
+            <Locations>
+                <ExternalItem uid="idal--8--ei">
+                    <Id id="plate.jt">
+                        <Identifier uid="idal--8--id9" id="plate.jt" idContextRef="o--2"/>
+                    </Id>
+                    <Source>
+                        <IdentifierString>.\</IdentifierString>
+                    </Source>
+                </ExternalItem>
+            </Locations>
+        </File>
+    </DataContainer>
+</n0:Uos>
