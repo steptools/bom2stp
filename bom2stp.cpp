@@ -1,5 +1,5 @@
 /* $RCSfile: bom2stp.cpp,v $
- * $Revision: 1.1 $ $Date: 2015/01/06 03:02:06 $
+ * $Revision: 1.2 $ $Date: 2015/01/07 04:18:33 $
  * Auth: David Loffredo (loffredo@steptools.com)
  * 
  * Copyright (c) 1991-2015 by STEP Tools Inc. 
@@ -20,25 +20,10 @@
 
 #include "stdafx.h"
 #include "stp_schema.h"
+#include "bom2stp.h"
 #include "utf8fns.h"
 
-using namespace System;
-using namespace System::Xml;
 
-ref class CvtContext {
-public:
-    XmlDocument ^ src;
-    RoseDesign * dst;
-};
-
-void convert_bomxml_to_ap242 (System::String ^ xmlfn, System::String ^ stpfn);
-void cvtbom_header(CvtContext ^ cvt);
-void cvtbom_contents(CvtContext ^ cvt);
-
-const char * cvtbom_string_element (
-	XmlNode ^ root, const char * domstr, 
-	RoseObject * obj, const char* expatt
-	);
 
 int main(array<System::String ^> ^args)
 {
@@ -75,14 +60,19 @@ void convert_bomxml_to_ap242 (System::String ^ xmlfn, System::String ^ stpfn)
 	Console::WriteLine(e->Message);
     }
 
-    cvtbom_header(cvt); 
-    cvtbom_contents(cvt); 
-    
+    cvt_header(cvt); 
+
+    cvt_make_parts(cvt);
+    cvt_make_files(cvt);
+    cvt_make_part_nauos(cvt);
+
+    // uncomment to see the xml uid strings
+    // RoseP21Writer::max_spec_version(PART21_ED3);
     cvt->dst-> save();
 }
 
 
-void cvtbom_header(CvtContext ^ cvt)
+void cvt_header(CvtContext ^ cvt)
 {
     // Initialize the design with information from the BOM Xml Header element.  
     XmlNode ^ head = cvt->src->DocumentElement-> SelectSingleNode("//Header");
@@ -91,9 +81,9 @@ void cvtbom_header(CvtContext ^ cvt)
 
     cvt->dst->initialize_header();
 
-    cvtbom_string_element (head, "Name", cvt->dst-> header_name(), "name");
-    cvtbom_string_element (head, "OriginatingSystem", cvt->dst-> header_name(), "originating_system");
-    cvtbom_string_element (head, "Authorization", cvt->dst-> header_name(), "authorisation");
+    cvt_string_element (head, "Name", cvt->dst-> header_name(), "name");
+    cvt_string_element (head, "OriginatingSystem", cvt->dst-> header_name(), "originating_system");
+    cvt_string_element (head, "Authorization", cvt->dst-> header_name(), "authorisation");
     
     n = head-> SelectSingleNode("Documentation");
     if (n != nullptr) {
@@ -105,55 +95,148 @@ void cvtbom_header(CvtContext ^ cvt)
 }
 
 
-void cvtbom_contents(CvtContext ^ cvt)
+
+void cvt_make_parts(CvtContext ^ cvt)
 {
-    // Go through the body of the file and start converting elements.  
-    XmlNode ^ data = cvt->src->DocumentElement-> SelectSingleNode("//DataContainer");
-    XmlNode ^ n;
-    XmlNodeList^ nodes;
-    System::Collections::IEnumerator^ itr;
-    if (data == nullptr) return;
+    XmlNodeList^ nodes = cvt->src->DocumentElement->SelectNodes( "//Part");
+    System::Collections::IEnumerator^ itr = nodes->GetEnumerator();
+    while ( itr->MoveNext() ) {
+	XmlNode ^ root = safe_cast<XmlNode^>(itr->Current);
 
-    nodes = data->SelectNodes( "//Part");
-    itr = nodes->GetEnumerator();
-    while ( itr->MoveNext() )
-    {
-	n = safe_cast<XmlNode^>(itr->Current);
+	if (root == nullptr || cvt_is_uidref(root))
+	    continue;
+
 	stp_product * p = pnewIn(cvt->dst) stp_product;
-	stp_product_definition_formation * pdf = pnewIn(cvt->dst) stp_product_definition_formation;
-	stp_product_definition * pdef = pnewIn(cvt->dst) stp_product_definition;
 
-	pdef->formation(pdf);
-	pdf-> of_product(p);
-	
-	cvtbom_string_element (n, "Name", p, "name");
-	cvtbom_string_element (n, "Id", p, "id");
-	
-	cvtbom_string_element (n, "Id", pdef, "id");
+	cvt_string_element (root, "/Name", p, "name");
+	cvt_string_attribute (root-> SelectSingleNode("Id"), "id", p, "id");
 
-
-
-	// views and versions as well
-
+	XmlNodeList^ vers = root->SelectNodes( "Versions/PartVersion");
+	System::Collections::IEnumerator^ veritr = vers->GetEnumerator();
+	while (veritr->MoveNext() ) {
+	    cvt_make_part_version(cvt, safe_cast<XmlNode^>(veritr->Current), p);
+	}
     }
+}
 
+
+void cvt_make_part_version(CvtContext ^ cvt, XmlNode ^ root, stp_product * p)
+{
+    if (root == nullptr || cvt_is_uidref(root))
+	return;
+
+    stp_product_definition_formation * pdf = pnewIn(cvt->dst) stp_product_definition_formation;
+    pdf-> of_product(p);
+
+    cvt_register_uid(root, pdf);   // for now
+    cvt_string_attribute (root-> SelectSingleNode("Id"), "id", pdf, "id");
+
+    XmlNodeList^ nodes = root->SelectNodes( "Views/PartView");
+    System::Collections::IEnumerator^ itr = nodes->GetEnumerator();
+    while ( itr->MoveNext() ) {
+	cvt_make_part_view(cvt, safe_cast<XmlNode^>(itr->Current), pdf);
+    }
+}
+
+
+void cvt_make_part_view(CvtContext ^ cvt, XmlNode ^ root, stp_product_definition_formation * pdf)
+{
+  if (root == nullptr || cvt_is_uidref(root))
+	return;
+
+    stp_product_definition * pdef = pnewIn(cvt->dst) stp_product_definition;
+    pdef->formation(pdf);
+
+    cvt_register_uid(root, pdef);  
+    cvt_string_attribute (root-> SelectSingleNode("Id"), "id", pdef, "id");
+    
+    // Occurrence is use by someone else
+    // ViewOccurrenceRelationship is nauo 
+    // Create all product data first, then link in a separate pass
 }
 
 
 
 
+void cvt_make_part_nauos(CvtContext ^ cvt)
+{
+  // ViewOccurrenceRelationship is nauo 
+    // Occurrence is use by someone else
+    XmlNodeList^ nodes = cvt->src->DocumentElement-> SelectNodes( "//ViewOccurrenceRelationship");
+    System::Collections::IEnumerator^ itr = nodes->GetEnumerator();
+    while ( itr->MoveNext() ) {
+	XmlNode ^ vor = safe_cast<XmlNode^>(itr->Current);
+
+	if (vor == nullptr || cvt_is_uidref(vor)) continue;
+
+	stp_next_assembly_usage_occurrence * nauo = 
+	    pnewIn(cvt->dst) stp_next_assembly_usage_occurrence;
+
+	cvt_register_uid(vor, nauo);  
+
+	// get enclosing PartView, that is the relating
+	stp_product_definition * pdef_ing = cvt_find_parent_pdef(cvt, vor);
+	if (!pdef_ing) {
+	    Console::WriteLine("Could not find relating PartView for {0}", vor->OuterXml);
+	}
+	nauo-> relating_product_definition(pnewIn(cvt->dst) stp_product_definition_or_reference);
+	nauo-> relating_product_definition()-> _product_definition(pdef_ing);
+
+	// get the related element, that is the related and has the id
+	XmlNode ^ occur = cvt_find_refnode(cvt, vor-> SelectSingleNode("Related"));
+	stp_product_definition * pdef_ed = cvt_find_parent_pdef(cvt, occur);
+
+	if (!pdef_ed) {
+	    Console::WriteLine("Could not find related PartView for {0}", vor->OuterXml);
+	}
+	nauo-> related_product_definition(pnewIn(cvt->dst) stp_product_definition_or_reference);
+	nauo-> related_product_definition()-> _product_definition(pdef_ed);
+
+	cvt_string_attribute (occur-> SelectSingleNode("Id"), "id", nauo, "id");
+    }
+}
+
+
+
+
+void cvt_make_files(CvtContext ^ cvt)
+{
+    XmlNodeList^ nodes = cvt->src->DocumentElement->SelectNodes( "//File");
+    System::Collections::IEnumerator^ itr = nodes->GetEnumerator();
+    while ( itr->MoveNext() ) {
+	XmlNode ^ root = safe_cast<XmlNode^>(itr->Current);
+
+	if (root == nullptr || cvt_is_uidref(root))
+	    continue;
+	
+	stp_document_file * df = pnewIn(cvt->dst) stp_document_file;
+
+	cvt_register_uid(root, df);  
+	cvt_string_attribute (root-> SelectSingleNode("Id"), "id", df, "id");
+
+	df-> stp_document::name("");
+	df-> stp_document::description(NULL);
+
+	df-> stp_characterized_object::name("");
+	df-> stp_characterized_object::description(NULL);
+	//df-> kind(doctyp);
+    }
+}
 
 // ===========================================================
 // UTILITY FUNCTIONS 
 //
-// Set a rose attribute to the entire inner text contents of an XML element
-//
-const char * cvtbom_string_element (
+
+String ^ cvt_string_element (
 	XmlNode ^ root, const char * domstr, 
 	RoseObject * obj, const char* expatt
 	)
 {
-    if (root == nullptr || !obj) return 0;
+    // Set a rose attribute to the entire inner text contents of an
+    // XML element
+    //
+
+    if (root == nullptr || !obj) return nullptr;
 
     XmlNode ^ n = root-> SelectSingleNode(gcnew String(domstr));
     if (n != nullptr) {
@@ -161,10 +244,91 @@ const char * cvtbom_string_element (
 	MARSHAL_WIDE_TO_UTF8(val, val_utf8);
 	obj-> putString((const char*)val_utf8, expatt);
 	MARSHAL_UTF8_DONE(val, val_utf8);
+	return val;
+    }
+    return nullptr;
+}
 
-	// the pinned, utf8 converted string will disappear when we 
-	// return from this function, so return the rose copy of it.
-	return obj-> getString(expatt);
+String ^ cvt_string_attribute (
+	XmlNode ^ root, const char * xmlatt, 
+	RoseObject * obj, const char* expatt
+	)
+{
+    // Set a rose attribute to the entire inner text contents of an
+    // XML attribute
+    //
+    if (root == nullptr || !obj) return nullptr;
+
+    XmlNode ^ n = root->Attributes->GetNamedItem(gcnew String(xmlatt));
+    if (n != nullptr) {
+	String ^ val = n->InnerText;
+	MARSHAL_WIDE_TO_UTF8(val, val_utf8);
+	obj-> putString((const char*)val_utf8, expatt);
+	MARSHAL_UTF8_DONE(val, val_utf8);
+	return val;
+    }
+    return nullptr;
+}
+
+String ^ cvt_register_uid (
+	XmlNode ^ root, 	
+	RoseObject * obj
+	)
+{
+    // find the UID attribute and register it with the design
+    // by assigning it as the name of the rose object.
+    //
+    if (root == nullptr || !obj) return nullptr;
+    XmlNode ^ n = root->Attributes->GetNamedItem("uid");
+    if (n == nullptr) return nullptr;
+
+    String ^ uid = n->InnerText;
+    if (String::IsNullOrWhiteSpace(uid)) return nullptr;
+
+    MARSHAL_WIDE_TO_UTF8(uid, uid_utf8);
+    obj-> design()-> addName((const char*)uid_utf8, obj);
+    MARSHAL_UTF8_DONE(uid, uid_utf8);
+
+    return uid;
+}
+
+
+int cvt_is_uidref (XmlNode ^ root)
+{
+    return (root != nullptr && root->Attributes->GetNamedItem("uidRef") != nullptr);
+}
+
+stp_product_definition * cvt_find_parent_pdef(CvtContext ^ cvt, XmlNode ^ n)
+{
+    while (n != nullptr) 
+    {
+	if (n->Name != "PartView") {
+	    n = n->ParentNode;
+	    continue;
+	}
+	// got a pdef thing, go find by the uid in the step data
+	XmlNode ^ uid = n->Attributes->GetNamedItem("uid");
+	if (uid == nullptr) return 0;
+
+	String ^ val = uid->InnerText;
+	MARSHAL_WIDE_TO_UTF8(val, val_utf8);
+	RoseObject * obj = cvt-> dst-> findObject((const char*)val_utf8);
+	MARSHAL_UTF8_DONE(val, val_utf8);
+
+	return ROSE_CAST(stp_product_definition,obj);
     }
     return 0;
+}
+
+
+XmlNode ^ cvt_find_refnode(CvtContext ^ cvt, XmlNode ^ n)
+{
+    if (n == nullptr) return nullptr;
+
+    XmlNode ^ idref = n->Attributes->GetNamedItem("uidRef");
+    if (idref == nullptr) return nullptr;
+
+    return cvt->src->DocumentElement->SelectSingleNode(
+	String::Format("//*[@uid = '{0}']", idref->InnerText)
+	);
 }

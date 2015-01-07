@@ -36,7 +36,7 @@
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{E8E679E1-87A5-49B1-8308-2407E591599E}</ProjectGuid>
-    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <Keyword>ManagedCProj</Keyword>
     <RootNamespace>bom2stp</RootNamespace>
   </PropertyGroup>
@@ -290,6 +290,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="bom2stp.h" />
     <ClInclude Include="utf8fns.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="stdafx.h" />
