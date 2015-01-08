@@ -1,22 +1,9 @@
 # $RCSfile: win32.mak,v $
-# $Revision: 1.10 $ $Date: 2014/12/12 22:31:46 $
+# $Revision: 1.11 $ $Date: 2015/01/08 18:32:17 $
 # Auth: Dave Loffredo (loffredo@steptools.com)
 # 
 
 !include $(ROSE_CONFIG)
-!include version.mak
-
-NAME		= stepnc
-SOLUTION	= $(NAME).sln
-
-EXEC		= STEPNCExplorer.exe
-EXEC_VCDIR	= $(VC32DIR)
-
-VC32DIR		= explore\builds\Release-x86
-VC64DIR		= explore\builds\Release-x64
-
-MSBUILD		= MSBuild.exe
-MSBUILD_FLAGS	= $(SOLUTION) /t:Rebuild /v:detailed
 
 
 
@@ -27,92 +14,29 @@ MSBUILD_FLAGS	= $(SOLUTION) /t:Rebuild /v:detailed
 # case we want to build a MSM from them.
 #
 
-default: $(EXEC_VCDIR)\$(EXEC)
-install: $(EXEC_VCDIR)\$(EXEC) 
+default: bom2stp-zip
+install: bom2stp-zip
 
-build-win32: "$(VC32DIR)\$(EXEC)"
-build-win64: "$(VC64DIR)\$(EXEC)"
+clean very-clean spotless: 
+	$(RM) bom2stp.zip
+	- $(RMDIR) bom2stp
 
-clean:
-	- $(RMDIR) "explore\builds"
-	- $(RMDIR) "maker\builds"
-	- $(RMDIR) "netdll\builds"
+FILES = \
+	AssemblyInfo.cpp \
+	app.ico \
+	app.rc \
+	bom2stp.cpp \
+	bom2stp.h \
+	bom2stp.sln \
+	bom2stp.vcxproj \
+	bom2stp.vcxproj.filters \
+	resource.h \
+	stdafx.cpp \
+	stdafx.h \
+	utf8fns.cpp \
+	utf8fns.h
 
-#	- $(RM) $(SOLUTION).cache
-
-very-clean spotless: clean
-	-attrib -h $(NAME).suo
-	-$(RM) $(NAME).suo
-	-$(RM) $(NAME).vcxproj.user
-
-
-#========================================
-# File Targets 
-#
-
-# Originally we tried vcbuild, but that does not work for mixed C++
-# and .NET projects.  MSbuild is part of the .NET framework and works
-# properly for the mixed ones, which we have here.
-#
-# /p:Platform="Mixed Platforms"
-#
-# Build both versions, but we just install one to rose bin.
-"$(VC32DIR)\$(EXEC)":
-	$(MSBUILD) $(MSBUILD_FLAGS) /p:Platform="x86" /p:Configuration="Release" 
-
-"$(VC64DIR)\$(EXEC)":
-	$(MSBUILD) $(MSBUILD_FLAGS) /p:Platform="x64" /p:Configuration="Release"
-
-
-
-#========================================
-# Compiler and Platform Configurations  
-#
-!include $(ROSE)/config/release_win.mak
-
-
-# We do not need to change 32/64 configs because the project file has
-# all of that, but we do need to set the compiler to VS 2012
-#
-release: very-clean update-version
-	@echo ------------------------------
-	@echo BUILDING VS 2012
-	$(USECONFIG) -win32 -cxx vc11_md & $(WINMAKE) build-win32
-	$(USECONFIG) -win64 -cxx vc11_md & $(WINMAKE) build-win64
-
-
-sign-release:
-	signstep \
-		$(VC32DIR)\*.exe $(VC32DIR)\*.dll \
-		$(VC64DIR)\*.exe $(VC64DIR)\*.dll
-
-
-update-version:
-	perl verupdate.pl "explore\My Project\AssemblyInfo.vb" $(PKG_MAJ) $(PKG_MIN)
-	perl verupdate.pl "netdll\stepnc.rc" $(PKG_MAJ) $(PKG_MIN)
-	perl verupdate.pl "netdll\AssemblyInfo.cpp" $(PKG_MAJ) $(PKG_MIN)
-	perl verupdate.pl "plugin\Properties\AssemblyInfo.cs" $(PKG_MAJ) $(PKG_MIN)
-
-
-
-sample-zip:
-	$(RM) sample_plugin.zip
-	$(CP) plugin\obj\Release\stepnc_plugin.dll sample
-	$(ZIP) -r sample_plugin sample/README.txt
-	$(ZIP) -r sample_plugin sample/sample.sln
-	$(ZIP) -r sample_plugin sample/stepnc_plugin.dll
-	$(ZIP) -r sample_plugin sample/SamplePlugin/Properties/AssemblyInfo.cs
-	$(ZIP) -r sample_plugin sample/SamplePlugin/SamplePlugin.cs
-	$(ZIP) -r sample_plugin sample/SamplePlugin/MTConnectPlugin.cs
-	$(ZIP) -r sample_plugin sample/SamplePlugin/TextPlugin.cs
-	$(ZIP) -r sample_plugin sample/SamplePlugin/SamplePlugin.csproj
-	$(ZIP) -r sample_plugin sample/TestForm/Program.cs
-	$(ZIP) -r sample_plugin sample/TestForm/Properties/AssemblyInfo.cs
-	$(ZIP) -r sample_plugin sample/TestForm/Properties/Resources.Designer.cs
-	$(ZIP) -r sample_plugin sample/TestForm/Properties/Resources.resx
-	$(ZIP) -r sample_plugin sample/TestForm/Properties/Settings.Designer.cs
-	$(ZIP) -r sample_plugin sample/TestForm/Properties/Settings.settings
-	$(ZIP) -r sample_plugin sample/TestForm/TestForm.cs
-	$(ZIP) -r sample_plugin sample/TestForm/TestForm.csproj
-	$(ZIP) -r sample_plugin sample/TestForm/TestForm.Designer.cs
-	$(ZIP) -r sample_plugin sample/TestForm/TestForm.resx
+bom2stp-zip: clean
+	$(MKDIR) "bom2stp"
+	for $(FORVAR) in ($(FILES)) do $(CP) $(FORVAR) "bom2stp"
+	$(ZIP) -r bom2stp bom2stp
