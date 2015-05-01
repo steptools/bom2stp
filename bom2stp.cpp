@@ -113,8 +113,21 @@ void cvt_make_common(CvtContext ^ cvt)
 	cvt->dst, "ID1", 3, stixunit_mm, stixunit_deg, stixunit_steradian
 	);
 
+    stp_application_context * apc = 
+	pnewIn(cvt->dst) stp_application_context;
 
-    stp_application_context * apc = stix_make_ap_context(cvt->dst);
+    apc-> application ("managed model based 3d engineering");
+
+    stp_application_protocol_definition* apdef = 
+	pnewIn(cvt->dst) stp_application_protocol_definition;
+
+    apdef->status("international standard");
+    apdef->application_interpreted_model_schema_name (
+	"ap242_managed_model_based_3d_engineering"
+	);
+    apdef->application_protocol_year (2014);
+    apdef->application (apc);
+
 
     cvt-> dflt_prodctx = pnewIn(cvt->dst) stp_product_context;
     cvt-> dflt_prodctx-> name ("");
